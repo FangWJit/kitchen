@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dhf.kitchen.system.pc.userdetail.mapper.UserDetailMapper">
+
+    <resultMap id="UserDetail" type="com.dhf.kitchen.system.pc.userdetail.model.UserDetail">
+        <id property="id" jdbcType="CHAR" column="id"/>
+        <result property="userPhone" jdbcType="VARCHAR" column="user_phone"/>
+        <result property="userName" jdbcType="VARCHAR" column="user_name"/>
+        <result property="age" jdbcType="INTEGER" column="age"/>
+        <result property="sex" jdbcType="VARCHAR" column="sex"/>
+        <result property="userPhoto" jdbcType="VARCHAR" column="user_photo"/>
+        <result property="fans" jdbcType="BIGINT" column="fans"/>
+        <result property="noricer" jdbcType="BIGINT" column="noricer"/>
+        <result property="notesNum" jdbcType="BIGINT" column="notes_num"/>
+        <result property="tuckNum" jdbcType="BIGINT" column="tuck_num"/>
+        <result property="createTime" jdbcType="TIMESTAMP" column="create_time"/>
+        <result property="updateTime" jdbcType="TIMESTAMP" column="update_time"/>
+    </resultMap>
+
+
+    <sql id="BASE_user_detail">
+       id, user_phone, user_name, age, sex, user_photo, fans, noricer, notes_num, tuck_num, create_time, update_time
+    </sql>
+
+    <select id="queryUserDetail" parameterType="string" resultMap="UserDetail">
+        SELECT
+        <include refid="BASE_user_detail" />
+        FROM user_detail
+        WHERE id=#{userId}
+    </select>
+
+    <insert id="insertUserDetail" parameterType="com.dhf.kitchen.system.pc.userdetail.model.UserDetail" >
+        INSERT INTO user_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userPhone != null">
+                user_phone,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="age != null">
+                age,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="userPhoto != null">
+                user_photo,
+            </if>
+            <if test="fans != null">
+                fans,
+            </if>
+            <if test="noricer != null">
+                noricer,
+            </if>
+            <if test="notesNum != null">
+                notes_num,
+            </if>
+            <if test="tuckNum != null">
+                tuck_num,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="userPhone != null">
+                #{userPhone},
+            </if>
+            <if test="userName != null">
+                #{userName},
+            </if>
+            <if test="age != null">
+                #{age},
+            </if>
+            <if test="sex != null">
+                #{sex},
+            </if>
+            <if test="userPhoto != null">
+                #{userPhoto},
+            </if>
+            <if test="fans != null">
+                #{fans},
+            </if>
+            <if test="noricer != null">
+                #{noricer},
+            </if>
+            <if test="notesNum != null">
+                #{notesNum},
+            </if>
+            <if test="tuckNum != null">
+                #{tucknum},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+        </trim>
+    </insert>
+
+    <select id="getRank" resultMap="UserDetail">
+        SELECT
+        <include refid="BASE_user_detail" />
+        FROM user_detail
+        ORDER BY fans DESC
+        LIMIT 0,20
+    </select>
+
+</mapper>

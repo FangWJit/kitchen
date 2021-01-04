@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dhf.kitchen.system.pc.food.mapper.FoodListMapper">
+
+    <sql id="base_sql">
+        user_id,user_name,name,tags,method,img,level,peopleNum,taste,prepareTime,cookTime,mainIngredient,accessories,measure,techniques,CreateTime,readcount,likecount
+    </sql>
+    <sql id="rank_sql">
+        user_id,user_name,name,tags,img,likecount
+    </sql>
+<!--    降序排列菜单 -->
+    <select id="getList" resultType="foodMeau">
+        SELECT
+        <include refid="base_sql" />
+        FROM meau
+        ORDER BY readcount DESC 
+    </select>
+<!--    查询喜欢度-->
+    <select id="getLikeList" resultType="foodRankDto">
+        SELECT
+        <include refid="rank_sql"></include>
+        FROM `meau`
+        ORDER BY likecount desc
+        LIMIT 0,7
+    </select>
+<!--  查询最近-->
+    <select id="getLastList" resultType="foodRankDto">
+        SELECT
+        <include refid="rank_sql"></include>
+        FROM `meau`
+        ORDER BY createTime desc
+        LIMIT 0,7
+    </select>
+
+</mapper>

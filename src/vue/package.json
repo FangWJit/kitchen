@@ -1,0 +1,24 @@
+{
+  "name": "default",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "axios": "^0.21.0",
+    "core-js": "^2.6.5",
+    "element-ui": "^2.14.1",
+    "moment": "^2.29.1",
+    "vue": "^2.6.10",
+    "vue-router": "^3.4.9",
+    "vuex": "^3.5.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.8.0",
+    "@vue/cli-service": "^3.8.0",
+    "vue-template-compiler": "^2.6.10"
+  },
+  "proxy": "http://127.0.0.1:8045/kitchen"
+}

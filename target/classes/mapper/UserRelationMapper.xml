@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dhf.kitchen.system.pc.userrelation.mapper.UserRelationMapper">
+
+
+    <!--  查询用户的关注数  -->
+    <select id="selectNoricorNum" parameterType="string" resultType="int">
+        SELECT COUNT(id)
+        FROM `user_relation` AS ur
+        WHERE ur.user_id=#{userId}
+        AND ur.isdelete=0
+    </select>
+
+    <!--  查询用户的粉丝数  -->
+    <select id="selectFansNum" parameterType="string" resultType="int">
+        SELECT COUNT(id)
+        FROM `user_relation` AS ur
+        WHERE ur.noricor_id=#{userId}
+        AND ur.isdelete=0
+    </select>
+
+    <!--  关注用户(第一次关注) -->
+    <insert id="insertFirstFansNum" parameterType="userRelation" >
+        INSERT INTO user_relation(user_id,noricor_id)
+        VALUES (#{userId},#{noricorId})
+    </insert>
+
+    <!--  关注用户(之后的关注) -->
+    <update id="insertFansNum" parameterType="userRelation" >
+        UPDATE  user_relation
+        SET isdelete=0
+        WHERE user_id=#{userId}
+        AND noricor_id=#{noricorId}
+    </update>
+
+    <!--  取消关注 -->
+    <update id="updateFansNum" parameterType="userRelation" >
+        UPDATE  user_relation
+        SET isdelete=1
+        WHERE user_id=#{userId}
+        AND noricor_id=#{noricorId}
+    </update>
+
+    <!-- 用户关系是否存在 -->
+    <select id="getRelation" parameterType="userRelation" resultType="int">
+        SELECT count(id)
+        FROM user_relation
+        WHERE user_id=#{userId}
+        AND noricor_id=#{noricorId}
+        AND isdelete=0
+    </select>
+
+</mapper>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dhf.kitchen.system.pc.ht.mapper.HtMapper">
+
+    <select id="selectHtList"  resultType="htDetail">
+        SELECT hd.ht_id AS htId,
+        hd.user_id AS userId,
+        hd.user_name AS userName,
+        hd.user_photo AS userPhoto,
+        hd.ht_value AS htValue,
+        hd.create_time AS createTime,
+        count(hr.id) as ansNum
+        FROM ht_detail AS hd
+        left JOIN ht_relation AS hr ON hr.que_id = hd.ht_id
+        where hd.isht=1 GROUP BY hd.ht_id;
+    </select>
+
+    <select id="getHt"  resultType="htDetail">
+        SELECT hd.ht_id AS htId,
+        hd.user_id AS userId,
+        hd.user_name AS userName,
+        hd.user_photo AS userPhoto,
+        hd.ht_value AS htValue,
+        hd.create_time AS createTime
+        FROM ht_relation AS hr
+        INNER JOIN ht_detail AS hd ON hr.ans_id = hd.ht_id
+        where hr.que_id = #{queId}
+    </select>
+
+    <insert id="insertHt" parameterType="htDetailDt" >
+        INSERT INTO ht_detail(ht_id,user_id,user_name,user_photo,ht_value,isht)
+        values (#{htId},#{userId},#{userName},#{userPhoto},#{htValue},#{isHt})
+    </insert>
+
+    <insert id="insertAnsHt" parameterType="htDetailDt">
+        INSERT INTO ht_relation(que_id,ans_id)
+        VALUES (#{queId},#{htId})
+    </insert>
+<!--    删除话题表中对用id的话题-->
+    <delete id="deleteHt" parameterType="string">
+        DELETE FROM ht_detail WHERE ht_id=#{htId}
+    </delete>
+<!--   删除话题id的所有评论-->
+    <delete id="deleteAllAns" parameterType="string">
+        DELETE FROM ht_relation WHERE que_id=#{htId}
+    </delete>
+<!--  删除话题id对应id的评论-->
+    <delete id="deleteAnsHt" parameterType="string">
+        DELETE FROM ht_relation WHERE que_id=#{htId} AND ans_id=#{ansHt}
+    </delete>
+
+</mapper>

@@ -1,0 +1,70 @@
+
+
+# 连接数据库
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://127.0.0.1:3306/kitchen?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    initialSize: 10 #初始化时建立物理连接的个数
+    minIdle: 50  #最小连接池数量
+    maxActive: 500 #最大连接池数量
+    maxWait: 60000 #获取连接时最大等待时间，单位毫秒
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: true
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    filters: stat,wall  #监控统计用的filter:stat，日志用的filter:log4j， 防御sql注入的filter:wall
+    # Single file max size
+    http:
+      multipart:
+        maxFileSize: 100Mb
+        maxRequestSize: 100Mb
+  redis:
+    host: 192.168.129.129
+    port: 6379
+    password: fangredis
+    database: 1
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  typeAliasesPackage: com.dhf.kitchen.system.pc.*.model
+  global-config:
+    db-config:
+      id-type: input
+      field-strategy: not_empty
+  configuration:
+    cache-enabled: false
+    jdbc-type-for-null: 'null'
+    map-underscore-to-camel-case: true
+
+swagger:
+  basePath: com.dhf
+  title: API
+  description: esint-demo API
+  version: 1.0
+  enable: true
+
+shiro-redis:
+  enabled: true
+  redis-manager:
+    host: 192.168.129.129:6379
+    password: fangredis
+
+markerhub:
+  jwt:
+    # 加密秘钥
+    secret: f4e2e52034348f86b67cde581c0f9eb5
+    # token有效时长，7天，单位秒
+    expire: 604800
+    header: token
+server:
+  port: 8045
+  servlet:
+    context-path: /kitchen
+
