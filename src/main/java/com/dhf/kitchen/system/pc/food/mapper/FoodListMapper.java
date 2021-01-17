@@ -25,4 +25,6 @@ public interface FoodListMapper {
 
     /* 查询出喜欢度 第二 -第七 */
     List<FoodRankDto> getLikeList();
+
+    FoodMeau getFoodMeau(int meauId);
 }

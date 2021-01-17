@@ -14,12 +14,14 @@ import java.util.Date;
 @Data
 public class FoodMeau implements Serializable {
 
-    /* 菜名 */
-    private String name;
+    /* 菜品的id*/
+    private int meauId;
     /* 创建用户id */
     private String userId;
     /* 创建用户姓名 */
     private String userName;
+    /* 菜名 */
+    private String name;
     /* 功能 */
     private String tags;
     /* 类型*/

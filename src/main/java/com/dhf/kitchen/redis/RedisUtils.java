@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class RedisUtils {
 
-    @Qualifier("jedisTemplate")
+    @Qualifier("myRedisTemplate")
     @Autowired
     RedisTemplate redisTemplate;
 
@@ -51,7 +51,7 @@ public class RedisUtils {
     }
 
     /**
-    　* @Description 存入String值并设置过期时间
+    　* @Description 存入String值并设置过期时间  单位秒
     　* @Author 方万军
     　* [key, value, time]
     　* @return boolean

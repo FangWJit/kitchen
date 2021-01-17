@@ -15,6 +15,14 @@
         username:''
       }
     },
+    mounted() {
+      window.addEventListener('hashchange', () => {
+        let currentPath = window.location.hash.slice(1)
+        if (this.$route.path !== currentPath) {
+          this.$router.push(currentPath)
+        }
+      }, false)
+    },
     methods:{
 
     }

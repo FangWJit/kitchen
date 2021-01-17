@@ -3,7 +3,6 @@ package com.dhf.kitchen.utils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.dhf.kitchen.config.RedisConfig;
-import com.dhf.kitchen.redis.RedisUtils;
 import com.google.common.collect.Lists;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;

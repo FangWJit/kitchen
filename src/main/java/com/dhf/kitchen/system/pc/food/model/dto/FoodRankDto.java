@@ -13,6 +13,8 @@ import java.io.Serializable;
 @Data
 public class FoodRankDto implements Serializable {
 
+    /* 菜品唯一id*/
+    private int meauId;
     /* 菜名 */
     private String name;
     /* 创建用户id */

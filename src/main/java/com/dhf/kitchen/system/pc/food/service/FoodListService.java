@@ -15,9 +15,15 @@ import com.dhf.kitchen.system.pc.food.model.FoodMeau;
  */
 public interface FoodListService {
 
+    /* 获取所有的菜品列表 */
     KitResult getList() ;
 
+    /* 获取最受欢迎的排行 */
     KitResult getRank();
 
+    /* 获取最新发布的 排行 */
     KitResult getLastRank();
+
+    /* 通过id获取 当前菜品的详细信息 */
+    KitResult getFoodMeau(int id);
 }

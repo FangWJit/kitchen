@@ -1,6 +1,7 @@
 package com.dhf.kitchen.config;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -17,7 +18,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * Swagger config
  */
 @Configuration
-@EnableSwagger2
+@EnableSwagger2 // 开启swagger2
 public class Swagger2Configuration {
 
     @Value(value = "${swagger.basePath}")
@@ -39,6 +40,7 @@ public class Swagger2Configuration {
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .enable(enable)
+                .enableUrlTemplating(true)
                 .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage(basePackage))
@@ -53,4 +55,5 @@ public class Swagger2Configuration {
                 .version(version)
                 .build();
     }
+
 }

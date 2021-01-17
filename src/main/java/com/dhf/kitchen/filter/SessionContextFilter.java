@@ -34,7 +34,7 @@ public class SessionContextFilter implements Filter {
     @Autowired
     private RedisUtils redisUtils;
 
-    private String annoUrl = "/user/login,/user/forGetPass,/user/register,/user/checkPhoneCode,/user/registerCheck,/user/checkCode";
+    private String annoUrl = "/user/login,/user/forGetPass,/user/register,/user/checkPhoneCode,/user/registerCheck,/user/checkCode,/swagger-ui.html";
 
     private Set<String> annoUrls;
 

@@ -109,7 +109,7 @@ public class CheckPhoneServiceImpl implements CheckPhoneService {
             return KitResult.fail("验证码格式不对");
         }
         String smsCode = ValidateSmsCodeUtil.sendValidateSmsCode(phone, code);
-        if (StringUtils.equals("200",code)) {
+        if (StringUtils.equals("200",smsCode)) {
             return KitResult.succ(null);
         }
         return KitResult.fail("验证失败");

@@ -22,6 +22,13 @@ public class UserDetailServiceImpl extends ServiceImpl<UserDetailMapper, UserDet
     @Autowired
     private UserDetailMapper userDetailMapper;
 
+    /**
+    　* @Description 查询用户的详细信息
+    　* @Author 方万军
+    　* [userId]
+    　* @return com.dhf.kitchen.base.KitResult
+    　* @date 2021/1/6 15:30
+    */
     @Override
     public KitResult queryUserDetail(String userId) {
 
@@ -32,6 +39,13 @@ public class UserDetailServiceImpl extends ServiceImpl<UserDetailMapper, UserDet
         return KitResult.succ(userDetail);
     }
 
+    /**
+    　* @Description 用户排序
+    　* @Author 方万军
+    　* []
+    　* @return com.dhf.kitchen.base.KitResult
+    　* @date 2021/1/6 15:30
+    */
     @Override
     public KitResult getUserRank() {
         List<UserDetail> rank = userDetailMapper.getRank();

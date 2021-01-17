@@ -365,8 +365,7 @@
             },
             // 退出
             loginout() {
-                localStorage.removeItem('Authorization');
-                sessionStorage.removeItem('userInfo');
+                this.$store.commit("REMOVE_INFO");
                 this.$router.push({path:'login'});
             }
         }

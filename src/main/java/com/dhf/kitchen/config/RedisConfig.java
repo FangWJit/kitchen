@@ -21,7 +21,7 @@ public class RedisConfig {
     @Autowired
     RedisConnectionFactory redisConnectionFactory;
 
-    @Bean(value = "jedisTemplate")
+    @Bean(value = "myRedisTemplate")
     public RedisTemplate redisTemplate(){
 
         RedisTemplate redisTemplate = new RedisTemplate();

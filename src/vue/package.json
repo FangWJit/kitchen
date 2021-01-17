@@ -19,6 +19,5 @@
     "@vue/cli-plugin-babel": "^3.8.0",
     "@vue/cli-service": "^3.8.0",
     "vue-template-compiler": "^2.6.10"
-  },
-  "proxy": "http://127.0.0.1:8045/kitchen"
+  }
 }

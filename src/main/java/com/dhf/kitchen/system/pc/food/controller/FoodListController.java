@@ -3,9 +3,12 @@ package com.dhf.kitchen.system.pc.food.controller;
 
 import com.dhf.kitchen.base.KitResult;
 import com.dhf.kitchen.system.pc.food.service.FoodListService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;
@@ -20,6 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2020-11-13
  */
 @RestController
+@Api
+@RequiresAuthentication  // 请求验证
 @RequestMapping("/foodList")
 public class FoodListController {
 
@@ -34,20 +39,31 @@ public class FoodListController {
     　* @return
     　* @date 2021/1/2 16:25
     */
+    @ApiOperation(value = "获取菜单列表" , tags = "获取菜单列表")
     @GetMapping(value = "/getList")
-    @RequiresAuthentication
     public KitResult getList(){
        return  foodListService.getList();
     }
 
+    @ApiOperation(value = "获取最热菜品排行" , tags = "获取最热菜品排行")
     @GetMapping(value = "/getRank")
     public KitResult getRank() {
         return foodListService.getRank();
     }
 
+    @ApiOperation(value = "获取最新菜品排行" , tags = "获取最新菜品排行")
     @GetMapping(value = "/getLastRank")
     public KitResult getLastRank() {
         return foodListService.getLastRank();
+    }
+
+    @ApiOperation(value = "获取菜品详情" , tags = "获取菜品详情")
+    @GetMapping(value = "/getFoodDetail/{id}")
+    public KitResult getFoodDetail(@PathVariable("id") int id ) {
+        if( id < 0) {
+            return KitResult.fail("请求参数有误");
+        }
+        return foodListService.getFoodMeau(id);
     }
 }
 

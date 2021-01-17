@@ -49,5 +49,15 @@ public class FoodListServiceImpl implements FoodListService {
         return KitResult.succ(lastList);
     }
 
+    @Override
+    public KitResult getFoodMeau(int id) {
+        if (id < 0) {
+            return KitResult.fail("请求参数有误");
+        }
+        FoodMeau foodMeau = foodListMapper.getFoodMeau(id);
+        if (foodMeau == null )  return KitResult.fail("资源不存在");
+        return KitResult.succ(foodMeau);
+    }
+
 
 }

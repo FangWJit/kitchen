@@ -4,7 +4,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     token: '',
-    userInfo: JSON.parse(sessionStorage.getItem("userInfo"))
+    userInfo:JSON.parse(sessionStorage.getItem("userInfo")),
+    foodList:JSON.parse(sessionStorage.getItem("foodList"))
   },
   mutations: {
     SET_TOKEN: (state, token) => {
@@ -12,14 +13,20 @@ export default new Vuex.Store({
       localStorage.setItem("Authorization", token)
     },
     SET_USERINFO: (state, userInfo) => {
-      state.userInfo = userInfo
+      state.userInfo = userInfo;
       sessionStorage.setItem("userInfo", JSON.stringify(userInfo))
     },
     REMOVE_INFO: (state) => {
-      localStorage.setItem("Authorization", '')
-      sessionStorage.setItem("userInfo", JSON.stringify(''))
-      state.userInfo = {}
-    }
+      localStorage.removeItem("Authorization");
+      sessionStorage.removeItem("userInfo");
+      sessionStorage.removeItem("foodList");
+      state.userInfo = {};
+      state.foodList = {};
+    },
+    SET_FOODLIST:(state,foodList) => {
+      state.foodList = foodList;
+      sessionStorage.setItem("foodList",JSON.stringify(foodList));
+    },
   },
   getters: {
     getUser: state => {

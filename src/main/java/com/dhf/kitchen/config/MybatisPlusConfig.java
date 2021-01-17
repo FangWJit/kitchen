@@ -24,7 +24,7 @@ public class MybatisPlusConfig {
         return new PerformanceInterceptor();
     }
 
-
+    //  分页 插件
     @Bean
     public PaginationInterceptor paginationInterceptor() {
         PaginationInterceptor paginationInterceptor = new PaginationInterceptor();

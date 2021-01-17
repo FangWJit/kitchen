@@ -315,7 +315,8 @@
                              if (res.data.code === '200'){
                                  _this.next();
                              } else {
-                                 alert(res.data.message);
+                                 _this.errorMessage = res.data.message;
+                                 _this.error();
                              }
                          })
 
