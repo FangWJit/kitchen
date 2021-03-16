@@ -8,6 +8,10 @@ import register from "../components/register";
 import food_question from "../components/food_question";
 import proclamation from "../components/proclamation";
 import foodlist2 from "../components/foodlist2";
+import foodDetails from "../components/foodDetails";
+import health from "../components/health";
+import food_assort from "../components/food_assort";
+import user_assort from "../components/user_assort";
 
 Vue.use(VueRouter)
 
@@ -21,12 +25,18 @@ const routes = [
     {
         path: '/index',
         name: 'index',
-        component: index
+        component: index,
+        meta:{ keepAlive: true }
     },
     {
         path: '/detail',
         name: 'detail',
         component:detail
+    },
+    {
+        path: '/foodDetails',
+        name: 'foodDetails',
+        component:foodDetails
     },
     {
         path: '/login',
@@ -51,12 +61,27 @@ const routes = [
     {
         path: '/food_question',
         name:'food_question',
-        component: food_question
+        component: food_question,
     },
     {
         path: '/proclamation',
         name: 'proclamation',
         component: proclamation
+    },
+    {
+        path: '/health',
+        name: 'health',
+        component: health
+    },
+    {
+        path: '/food_assort',
+        name: 'food_assort',
+        component: food_assort
+    },
+    {
+        path: '/user_assort',
+        name: 'user_assort',
+        component: user_assort
     }
 
 ]

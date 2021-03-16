@@ -5,7 +5,8 @@ export default new Vuex.Store({
   state: {
     token: '',
     userInfo:JSON.parse(sessionStorage.getItem("userInfo")),
-    foodList:JSON.parse(sessionStorage.getItem("foodList"))
+    foodList:JSON.parse(sessionStorage.getItem("foodList")),
+    currentPage:1
   },
   mutations: {
     SET_TOKEN: (state, token) => {
@@ -15,6 +16,9 @@ export default new Vuex.Store({
     SET_USERINFO: (state, userInfo) => {
       state.userInfo = userInfo;
       sessionStorage.setItem("userInfo", JSON.stringify(userInfo))
+    },
+    SET_CURRENTPAGR: (state,currentPage) => {
+      state.currentPage = currentPage;
     },
     REMOVE_INFO: (state) => {
       localStorage.removeItem("Authorization");

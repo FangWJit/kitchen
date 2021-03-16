@@ -1,58 +1,11 @@
 <template>
 	<div>
-		<div id="top">
-			<div id="top_logo">
-				<img src="../static/image/厨阁.png" style="width: 50px;height:50px;float: left">
-				<span style="font-size: 30px;">厨阁</span>
-			</div>
-			<div id="top_search">
-				<form>
-					<div id="top_search_input">
-						<div id="FDJ"><img src="../static/image/搜索.png" /></div>
-						<input type="text" id="top_search_input_Text" />
-						<button style="margin-left:13px;height: 42px;width: 80px;position:absolute;border:0
-		    ;background: coral;margin-top: -1px;border-radius: 3px;float: right;
-		    font-family: 隶书;font-size: 20px">搜索</button>
-					</div>
-				</form>
-			</div>
-			<div id="top_list">
-				<ul>
-					<a href="#">
-						<li>上传</li>
-					</a>
-					<a @click="$router.push({path:'/food_question'})" href="">
-						<li>提问</li>
-					</a>
-					<a @click="$router.push({path:'/detail',query:{userId:$store.state.userInfo.id}})" v-if="username != null || username != ''" href="">
-						<li style="font-size: 20px;color: coral">{{username}}</li>
-					</a>
-					<a href="" v-else-if="username == null || username == '' ">
-						<li>请先登录</li>
-					</a>
-					<a href="" @click="loginout()">
-						<li>退出</li>
-					</a>
-				</ul>
-			</div>
 
+
+		<div class="background">
+			<img :src="backgroudimage" width="100%" height="100%" alt="厨阁" />
 		</div>
 
-		<div id="Navigation">
-			<div id="Navigation_body">
-				<ul>
-					<a class="Navigation" @click="$router.push({path:'/index'})" href=""><li class="na_li"> 首页</li></a>
-					<a class="Navigation" @click="$router.push({path:'/foodlist'})"  href="" ><li class="na_li">菜谱大全</li></a>
-					<a class="Navigation" @click="$router.push({path:'/foodlist2'})"  href=""><li class="na_li">家常菜谱</li></a>
-					<a class="Navigation" @click="$router.push({path:'/food_question'})"  href=""><li class="na_li">美食问答</li></a>
-					<a class="Navigation"  href=""><li class="na_li">食谱分类</li></a>
-					<a class="Navigation"  href=""><li class="na_li">健康食疗</li></a>
-					<a class="Navigation"  href=""><li class="na_li">厨友排行</li></a>
-					<a class="Navigation" @click="$router.push({path:'/proclamation'})" href=""><li class="na_li">公告</li></a>
-				</ul>
-
-			</div>
-		</div>
 		<div class="bobo">
 			<el-collapse v-model="activeNames" @change="handleChange">
 				<el-collapse-item title="基本信息" name="1" >
@@ -162,9 +115,9 @@
 	export default {
 		data (){
 			return {
+				backgroudimage: require('../static/image/背景8.png'),
 				currentDate: new Date(),
 				activeNames: ['1','2','3','4'],
-				username:'',
 				user:{
 					username:'',
 					userphone:'',
@@ -190,7 +143,6 @@
 				console.log(val);
 			},
 			init(){
-				this.username = this.$store.state.userInfo.userName;
 				let _this = this;
 				this.$request.get('/userDetail/getDetail?userId='+this.userId)
 				.then( res => {
@@ -219,7 +171,10 @@
 	@import url("../static/css/css_detail.css");
 	.bobo{
 		max-width: 900px;
-		margin:10px auto;
+		margin:0 auto;
+		height: auto;
+		padding:0 10px 0 10px;
+		background-color: rgba(255, 255, 255 , 1);
 	}
 	.tag_css{
 		margin: 25px auto;

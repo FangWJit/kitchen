@@ -387,7 +387,26 @@
                                 console.log(res);
                                 if (res.data.code === '200' || res.status === '200') {
                                     _this.$store.commit('SET_TOKEN', res.headers.authorization);
-                                    _this.$router.push({path: 'index'});
+                                    //  获取  用户的详细信息
+                                    _this.$request.get("/user/index")
+                                        .then(res => {
+                                                console.log(res)
+                                                if (res.data.code == '200' ) {
+                                                    _this.$store.commit('SET_USERINFO',res.data.data);
+                                                    _this.$router.push({path: 'index'});
+                                                } else {
+                                                    localStorage.removeItem('Authorization');
+                                                    _this.errorMessage = res.data.message;
+                                                    _this.loading = false;
+                                                    _this.error();
+                                                }
+                                            },
+                                            fail => {
+                                                localStorage.removeItem('Authorization');
+                                                _this.errorMessage = res.data.message;
+                                                _this.loading = false;
+                                                _this.error();
+                                            });
                                 } else {
                                     _this.errorMessage = res.data.message;
                                     _this.loading = false;
@@ -404,6 +423,8 @@
                         return false;
                     }
                 });
+
+
             },
             next() {
                 if (this.active++ === 2) {

@@ -17,6 +17,8 @@ import java.util.List;
  */
 public interface FoodListMapper {
 
+    Integer getCount();
+
     /* 查询所有的 */
     List<FoodMeau> getList();
 
@@ -26,5 +28,8 @@ public interface FoodListMapper {
     /* 查询出喜欢度 第二 -第七 */
     List<FoodRankDto> getLikeList();
 
+    /* 查询菜品详情 */
     FoodMeau getFoodMeau(int meauId);
+
+    int updateRead(int meauId);
 }

@@ -40,9 +40,15 @@ public class FoodListController {
     　* @date 2021/1/2 16:25
     */
     @ApiOperation(value = "获取菜单列表" , tags = "获取菜单列表")
-    @GetMapping(value = "/getList")
-    public KitResult getList(){
-       return  foodListService.getList();
+    @GetMapping(value = "/getList/{pageSize}")
+    public KitResult getList(@PathVariable("pageSize") Integer pageSize){
+       return  foodListService.getList(pageSize);
+    }
+
+    @ApiOperation(value = "获取总条目",tags = "获取总条目")
+    @GetMapping(value = "/getCount")
+    public KitResult getCount() {
+        return foodListService.getCount();
     }
 
     @ApiOperation(value = "获取最热菜品排行" , tags = "获取最热菜品排行")

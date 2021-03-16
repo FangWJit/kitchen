@@ -1,5 +1,6 @@
 package com.dhf.kitchen.system.pc.userrelation.model;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -17,6 +18,8 @@ import java.io.Serializable;
 @Setter
 public class UserRelation implements Serializable {
 
+    @TableId
+    private int id;
     /** 操作的id **/
     private String userId;
     /** 关注的id **/

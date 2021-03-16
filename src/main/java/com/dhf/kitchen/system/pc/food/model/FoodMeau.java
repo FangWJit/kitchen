@@ -1,5 +1,6 @@
 package com.dhf.kitchen.system.pc.food.model;
 
+import com.dhf.kitchen.base.entity.PojoConvertor;
 import lombok.Data;
 
 import java.io.Serializable;

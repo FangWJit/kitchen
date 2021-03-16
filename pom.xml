@@ -109,13 +109,14 @@
             <artifactId>commons-lang</artifactId>
             <version>2.6</version>
         </dependency>
+
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.7</version>
         </dependency>
 
-        <!-- shrio 整合 redis的包  -->
+        <!-- shiro 整合 redis的包  -->
         <dependency>
             <groupId>org.crazycake</groupId>
             <artifactId>shiro-redis-spring-boot-starter</artifactId>
@@ -140,6 +141,7 @@
             <artifactId>httpclient-osgi</artifactId>
             <version>4.5.2</version>
         </dependency>
+
     </dependencies>
 
     <build>

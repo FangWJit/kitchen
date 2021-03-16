@@ -16,7 +16,7 @@ import com.dhf.kitchen.system.pc.food.model.FoodMeau;
 public interface FoodListService {
 
     /* 获取所有的菜品列表 */
-    KitResult getList() ;
+    KitResult getList(Integer page) ;
 
     /* 获取最受欢迎的排行 */
     KitResult getRank();
@@ -26,4 +26,7 @@ public interface FoodListService {
 
     /* 通过id获取 当前菜品的详细信息 */
     KitResult getFoodMeau(int id);
+
+    /* 获取整个菜单的条目 */
+    KitResult getCount();
 }

@@ -1,0 +1,63 @@
+
+
+# 连接数据库
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://39.99.240.33:3306/kitchen?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    initialSize: 10 #初始化时建立物理连接的个数
+    minIdle: 50  #最小连接池数量
+    maxActive: 500 #最大连接池数量
+    maxWait: 60000 #获取连接时最大等待时间，单位毫秒
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: true
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    # Single file max size
+    # 上传文件
+    http:
+      multipart:
+        maxFileSize: 100Mb
+        maxRequestSize: 100Mb
+  redis:
+    host: 39.99.240.33
+    port: 6379
+    password: fangredis
+    database: 1
+
+
+
+# mybatis-plus 相关配置
+mybatis-plus:
+  mapper-locations: classpath:/mapper/*Mapper.xml
+  typeAliasesPackage: com.dhf.kitchen.system.pc.*.model
+  global-config:
+    db-config:
+      id-type: input
+      field-strategy: not_empty
+  configuration:
+    cache-enabled: false
+    jdbc-type-for-null: 'null'
+    map-underscore-to-camel-case: true
+
+# api框架
+swagger:
+  enable: true
+
+# shiro整合redis
+shiro-redis:
+  redis-manager:
+    host: 39.99.240.33:6379
+    password: fangredis
+
+# 端口号
+server:
+  port: 8045
+

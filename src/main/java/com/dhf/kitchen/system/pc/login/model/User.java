@@ -15,6 +15,9 @@ import java.io.Serializable;
 public class User implements Serializable {
 
 private static final long serialVersionUID=1L;
+
+    @TableId
+    private int id;
     /** 用户id **/
     private String userId;
     /** 用户昵称 **/
@@ -32,6 +35,13 @@ private static final long serialVersionUID=1L;
 
     private String mibao_3;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getUserId() {
         return userId;

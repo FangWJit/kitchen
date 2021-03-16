@@ -13,7 +13,9 @@
         count(hr.id) as ansNum
         FROM ht_detail AS hd
         left JOIN ht_relation AS hr ON hr.que_id = hd.ht_id
-        where hd.isht=1 GROUP BY hd.ht_id;
+        where hd.isht=1
+        GROUP BY hd.ht_id
+        ORDER BY createTime DESC
     </select>
 
     <select id="getHt"  resultType="htDetail">
@@ -26,6 +28,7 @@
         FROM ht_relation AS hr
         INNER JOIN ht_detail AS hd ON hr.ans_id = hd.ht_id
         where hr.que_id = #{queId}
+        ORDER BY hd.create_time DESC
     </select>
 
     <insert id="insertHt" parameterType="htDetailDt" >

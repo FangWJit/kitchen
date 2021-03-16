@@ -1,51 +1,81 @@
 <template>
     <div>
-        <div id="top">
+
+        <div class="background">
+            <img :src="backgroudimage" width="100%" height="100%" alt="厨阁" />
+        </div>
+
+        <div style="position: fixed;z-index: 9;width: 1520px;background-color:#ffffff;border-bottom: 1px #dcdfe6 solid ;height: 60px">
             <div id="top_logo">
                 <img src="../static/image/厨阁.png" style="width: 50px;height:50px;float: left">
                 <span style="font-size: 30px;">厨阁</span>
             </div>
-            <div id="top_search">
-                <form>
-                    <div id="top_search_input">
-                        <div id="FDJ"><img src="../static/image/搜索.png" /></div>
-                        <input type="text" id="top_search_input_Text" />
-                        <button style="margin-left:13px;height: 42px;width: 80px;position:absolute;border:0
-            ;background: coral;margin-top: -1px;border-radius: 3px;float: right;
-            font-family: 隶书;font-size: 20px" >搜索</button></div>
-                </form>
+            <div style="display: inline-block">
+                <el-menu default-active="3"
+                         class="el-menu-demo"
+                         mode="horizontal"
+                         active-text-color="coral">
+                    <el-menu-item index="1" @click="$router.push({path:'/index'})" >
+                        <span>首页</span>
+                    </el-menu-item>
+                    <el-menu-item index="2" @click="$router.push({path:'/foodlist'})">
+                        <span>菜谱大全</span>
+                    </el-menu-item>
+                    <el-menu-item index="3" @click="$router.push({path:'/foodlist2'})">
+                        <span >家常菜谱</span>
+                    </el-menu-item>
+                    <el-menu-item index="4" @click="$router.push({path:'/food_question'})" >
+                        <span >美食问答</span>
+                    </el-menu-item>
+                    <el-menu-item index="5" @click="$router.push({path:'/food_assort'})">
+                        <span >食谱分类</span>
+                    </el-menu-item>
+                    <el-menu-item index="6" @click="$router.push({path:'/health'})">
+                        <span >养身之道</span>
+                    </el-menu-item>
+                    <el-menu-item index="7" @click="$router.push({path:'/user_assort'})">
+                        <span >厨友排行</span>
+                    </el-menu-item>
+                    <el-menu-item index="8" @click="$router.push({path:'/proclamation'})">
+                        <span >公告</span>
+                    </el-menu-item>
+                </el-menu>
             </div>
             <div id="top_list">
                 <ul>
-                    <a href="#"><li>上传</li></a>
-                    <a href="#"><li>提问</li></a>
-                    <a href="" @click="$router.push({path:'login'})"> <li>登录</li></a>
-                    <a href=""><li>注册</li></a>
+                    <a href="#">
+                        <li>上传</li>
+                    </a>
+                    <a @click="$router.push({path:'/food_question'})" href="">
+                        <li>提问</li>
+                    </a>
+                    <a @click="router($store.state.userInfo.id)" v-if="userName != null || userName != ''" href="">
+                        <li style="font-size: 20px;color: coral">{{userName}}</li>
+                    </a>
+                    <a href="" v-if="userName === null || userName === '' ">
+                        <li style="margin-left: -15px">登录</li>
+                    </a>
+                    <a href="" @click="loginout()">
+                        <li>退出</li>
+                    </a>
                 </ul>
             </div>
-
-        </div>
-        <!--导航栏-->
-        <div id="Navigation">
-            <div id="Navigation_body">
-                <ul>
-                    <a class="Navigation" @click="$router.push({path:'/index'})" href=""><li class="na_li"> 首页</li></a>
-                    <a class="Navigation" @click="$router.push({path:'/foodlist'})"  href="" ><li class="na_li">菜谱大全</li></a>
-                    <a class="Navigation" @click="$router.push({path:'/foodlist2'})"  href="" style=" background-color: aliceblue;color: coral;"><li class="na_li">家常菜谱</li></a>
-                    <a class="Navigation" @click="$router.push({path:'/food_question'})"  href=""><li class="na_li">美食问答</li></a>
-                    <a class="Navigation"  href=""><li class="na_li">食谱分类</li></a>
-                    <a class="Navigation"  href=""><li class="na_li">健康食疗</li></a>
-                    <a class="Navigation"  href=""><li class="na_li">厨友排行</li></a>
-                    <a class="Navigation" @click="$router.push({path:'/proclamation'})"  href=""><li class="na_li">公告</li></a>
-                </ul>
-
+            <div id="top_search">
+                <form>
+                    <div id="top_search_input">
+                        <div id="FDJ"><img src="../static/image/搜索.png"/></div>
+                        <input type="text" id="top_search_input_Text" placeholder="番茄炒鸡蛋"/>
+                        <el-button type="primary"  style=" height: 34px;width: 70px;border: none;background: coral;
+                                          margin-top: -1px;float: right;font-family: 隶书;border-top-left-radius: 0;border-bottom-left-radius: 0">搜索</el-button>
+                    </div>
+                </form>
             </div>
         </div>
         <!--主体部分-->
         <div id="food_list">
             <br>
             <h3>菜谱大全</h3>
-            <div id="body_div_left_top_down">
+            <div id="body_div_left_top_down1">
                 <div class="XZ" style="margin:5px;width: 100px;height: 35px;background-color:#e7e3e3;float: left;border-radius: 3px;text-align: center;">
                     <a href="#food_list_pork" style="display: inline-block;width: 100px;height: 30px;border-radius: 3px;padding-top: 5px" >猪肉</a></div>
 
@@ -416,7 +446,20 @@
 
 <script>
     export default {
-        name: "foodlist"
+        name: "foodlist",
+        data(){
+            return{
+                backgroudimage: require('../static/image/背景8.png'),
+                userName:this.$store.state.userInfo.userName,
+            }
+        },
+        methods:{
+            // 带参 跳转 到 用户详情页
+            router(userId){
+                let url = this.$router.resolve({path:'/detail',query:{userId}});
+                window.open(url.href,'_blank');
+            }
+        }
     }
 </script>
 

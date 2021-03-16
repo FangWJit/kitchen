@@ -21,14 +21,14 @@
     <select id="queryByName" parameterType="user" resultMap="user_clu">
         SELECT
         <include refid="Base_Column_List" />
-        FROM USER
+        FROM user
         WHERE user_name = #{userName}
     </select>
 
     <select id="queryByPhone" parameterType="user" resultMap="user_clu">
         SELECT
         <include refid="Base_Column_List" />
-        FROM USER
+        FROM user
         WHERE user_phone = #{userPhone}
     </select>
 
