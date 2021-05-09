@@ -17,6 +17,14 @@
       user_id, user_name, user_pass, user_phone, is_lock, mibao_1, mibao_2, mibao_3
     </sql>
 
+    <!--  Deprecated 不推荐使用 -->
+    <select id="queryByName" parameterType="user" resultMap="user_clu">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM user
+        WHERE user_name = #{userName}
+    </select>
+
     <select id="queryByPhone" parameterType="user" resultMap="user_clu">
         SELECT
         <include refid="Base_Column_List" />
@@ -29,6 +37,9 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="userId!= null || userId != '' ">
                 user_id,
+            </if>
+            <if test="isLock != null || isLock != '' ">
+                isLock,
             </if>
             <if test="userName != null || userName != '' ">
                 user_name,
@@ -53,6 +64,9 @@
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="userId!= null || userId != '' ">
                 #{userId},
+            </if>
+            <if test="isLock != null || isLock != '' ">
+                #{isLock},
             </if>
             <if test="userName != null || userName != '' ">
                 #{userName},

@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.dhf</groupId>
-    <artifactId>kitchen_dev</artifactId>
+    <artifactId>esint_demo</artifactId>
     <version>1.0.0</version>
-    <name>kitchen_dev</name>
+    <name>esint_demo</name>
     <description>Demo project for Spring Boot</description>
 
     <properties>

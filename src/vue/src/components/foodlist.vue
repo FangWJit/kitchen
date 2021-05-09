@@ -1,30 +1,95 @@
 <template>
     <div>
+
         <div class="background">
             <img :src="backgroudimage" width="100%" height="100%" alt="厨阁" />
         </div>
+
+        <div style="position: fixed;z-index: 9;width: 1520px;background-color:#ffffff;border-bottom: 1px #dcdfe6 solid ;height: 60px">
+            <div id="top_logo">
+                <img src="../static/image/厨阁.png" style="width: 50px;height:50px;float: left">
+                <span style="font-size: 30px;">厨阁</span>
+            </div>
+            <div style="display: inline-block">
+                <el-menu default-active="2"
+                         class="el-menu-demo"
+                         mode="horizontal"
+                         active-text-color="coral">
+                    <el-menu-item index="1" @click="$router.push({path:'/index'})" >
+                        <span>首页</span>
+                    </el-menu-item>
+                    <el-menu-item index="2" @click="$router.push({path:'/foodlist'})">
+                        <span>菜谱大全</span>
+                    </el-menu-item>
+                    <el-menu-item index="3" @click="$router.push({path:'/foodlist2'})">
+                        <span >家常菜谱</span>
+                    </el-menu-item>
+                    <el-menu-item index="4" @click="$router.push({path:'/food_question'})" >
+                        <span >美食问答</span>
+                    </el-menu-item>
+                    <el-menu-item index="5" @click="$router.push({path:'/food_assort'})">
+                        <span >食谱分类</span>
+                    </el-menu-item>
+                    <el-menu-item index="6" @click="$router.push({path:'/health'})">
+                        <span >养身之道</span>
+                    </el-menu-item>
+                    <el-menu-item index="7" @click="$router.push({path:'/user_assort'})">
+                        <span >厨友排行</span>
+                    </el-menu-item>
+                    <el-menu-item index="8" @click="$router.push({path:'/proclamation'})">
+                        <span >公告</span>
+                    </el-menu-item>
+                </el-menu>
+            </div>
+            <div id="top_list">
+                <ul>
+                    <a href="#">
+                        <li>上传</li>
+                    </a>
+                    <a @click="$router.push({path:'/food_question'})" href="">
+                        <li>提问</li>
+                    </a>
+                    <a @click="router($store.state.userInfo.id)" v-if="userName != null || userName != ''" href="">
+                        <li style="font-size: 20px;color: coral">{{userName}}</li>
+                    </a>
+                    <a href="" v-if="userName === null || userName === '' ">
+                        <li style="margin-left: -15px">登录</li>
+                    </a>
+                    <a href="" @click="loginout()">
+                        <li>退出</li>
+                    </a>
+                </ul>
+            </div>
+            <div id="top_search">
+                <form>
+                    <div id="top_search_input">
+                        <div id="FDJ"><img src="../static/image/搜索.png"/></div>
+                        <input type="text" id="top_search_input_Text" placeholder="番茄炒鸡蛋"/>
+                        <el-button type="primary"  style=" height: 34px;width: 70px;border: none;background: coral;
+                                          margin-top: -1px;float: right;font-family: 隶书;border-top-left-radius: 0;border-bottom-left-radius: 0">搜索</el-button>
+                    </div>
+                </form>
+            </div>
+        </div>
         <!--主体部分-->
         <div id="food_list" >
-            <div style="width: 970px;height: auto;margin: 0 auto">
-                <div style="margin: 20px 10px 0 10px;width:220px;height:200px;display: inline-block " v-for="(item,index) in foodList" :key="index">
-                    <el-card shadow="hover" :body-style="{ padding: '10px' }"  >
-                        <div @click="info(item.meauId)">
-                            <div style=" height: 110px; width: 200px;background-color: white;">
-                                <img :src="item.img">
-                            </div>
-                            <div style=" height: 90px;width: 200px;background-color: white;" >
-                                <a href="" class="a" style="padding:5px;font-size: 14px;display:block;color: lightskyblue" > {{item.name.substr(0,13)}}</a>
-                                <p style="padding:5px;font-size: 14px;display: block"> {{item.tags.substr(0,14)}}...</p>
-                                <p style="padding:5px;font-size: 14px"> {{item.userName}}</p>
-                                <p style="padding:5px;float: right; font-size: 14px;color: red"> {{item.likecount}}.糖</p>
-                            </div>
-                        </div>
+            <div style=" margin-top: 10px; width: 970px;height: auto">
 
+                <div style="margin: 20px 10px 0 10px;width:220px;height:200px;display: inline-block " v-for="(item,index) in foodList" :key="index">
+                    <el-card shadow="hover" :body-style="{ padding: '10px' }" >
+                    <div style=" height: 110px; width: 200px;background-color: white;">
+                        <img :src="item.img">
+                    </div>
+                    <div style=" height: 90px;width: 200px;background-color: white;">
+                        <a href="" class="a" style="padding:5px;font-size: 14px;display:block;color: lightskyblue" @click="info(item.meauId)"> {{item.name.substr(0,13)}}</a>
+                        <p style="padding:5px;font-size: 14px;display: block"> {{item.tags.substr(0,14)}}...</p>
+                        <p style="padding:5px;font-size: 14px"> {{item.userName}}</p>
+                        <p style="padding:5px;float: right; font-size: 14px;color: red"> {{item.likecount}}.糖</p>
+                    </div>
                     </el-card>
                 </div>
-                <div class="pageHandler">
+                <div class="block">
                     <el-pagination
-                            background
                             @size-change="handleSizeChange"
                             @current-change="handleCurrentChange"
                             :current-page.sync="currentPage"
@@ -48,16 +113,11 @@
         name: "foodlist",
         data(){
             return{
-                outerVisible: false,
-                userPhoto: this.$store.state.userInfo.userPhoto,
-                selectId: this.$store.state.userInfo.userPhoto.substr(43,1), // 选择头像的序列id
-                lookPhoto: '',
-                backgroudimage: require('../static/img/背景8.png'),
+                backgroudimage: require('../static/image/背景8.png'),
                 userName:'',
                 currentPage:this.$store.state.currentPage,
                 count:0,
                 pageSize:20,
-                searchValue:'',
                 foodList:[
                     {
                         meauId:'',
@@ -83,6 +143,7 @@
                 _this.$request.get('/foodList/getCount')
                     .then(res => {
                         _this.count = res.data.data;
+                        // _this.$store.commit('SET_FOODLIST',res.data.data);
                     });
                 this.getList(this.currentPage);
             },
@@ -95,7 +156,6 @@
                 let url = this.$router.resolve({path:'/foodDetails',query:{meauId}});
                 window.open(url.href,'_blank');
             },
-
             handleSizeChange(val) {
                 console.log("当前页大小"+val);
             },
@@ -112,59 +172,6 @@
                         _this.foodList = res.data.data;
                         // _this.$store.commit('SET_FOODLIST',res.data.data);
                     });
-            },
-            handleCommand(command){
-                if (command === 'a'){
-                    // 修改头像
-                    this.lookPhoto = this.userPhoto;
-                    this.outerVisible = true;
-                }else if (command === 'b') {
-
-                } else if (command === 'd') {
-                    // 退出
-                    this.$store.commit("REMOVE_INFO");
-                    this.$router.push({path:'login'});
-                } else {
-                    this.router(this.$store.state.userInfo.id);
-                }
-
-            },
-            // 修改头像
-            handleAvatarSuccess(res, file) {
-                this.imageUrl = file.name;
-                this.photo = URL.createObjectURL(file.raw);
-            },
-            beforeAvatarUpload(file) {
-                const isJPG = file.type === 'image/jpeg';
-                const isLt2M = file.size / 1024 / 1024 < 2;
-                if (!isJPG) {
-                    this.$message.error('上传头像图片只能是 JPG 格式!');
-                }
-                if (!isLt2M) {
-                    this.$message.error('上传头像图片大小不能超过 2MB!');
-                }
-                return isJPG && isLt2M;
-            },
-            // 选择头像
-            select(id) {
-                this.selectId = id;
-                this.lookPhoto = 'http://39.99.240.33:8045/kitchen/static/image/'+id+'.png';
-            },
-            send() {
-                let url = 'http://39.99.240.33:8045/kitchen/static/image/'+this.selectId+'.png';
-                let _this = this;
-                _this.$request.get('/userDetail/setPhoto?photo='+url+'&id='+this.$store.state.userInfo.id)
-                    .then(res => {
-                        if (res.data.code === '200') {
-                            _this.userPhoto = url;
-                            _this.outerVisible = false;
-                            _this.$store.state.userInfo.userPhoto = url;
-                            window.sessionStorage.setItem('userInfo',JSON.stringify(_this.$store.state.userInfo));
-                        } else {
-                            _this.$message.error(res.data.message);
-                        }
-                    })
-                // this.$request.post('/userDetail/static',file);
             }
 
         }
@@ -174,8 +181,8 @@
 <style scoped>
     @import "../static/css/css_foodlist.css";
 
-    .pageHandler {
-        /*text-align: left;*/
+    .block {
+        text-align: left;
         margin: 20px;
     }
 </style>

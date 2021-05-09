@@ -6,14 +6,9 @@ export default new Vuex.Store({
     token: '',
     userInfo:JSON.parse(sessionStorage.getItem("userInfo")),
     foodList:JSON.parse(sessionStorage.getItem("foodList")),
-    currentPage:1,
-    pageIndex:'1'
+    currentPage:1
   },
   mutations: {
-    SET_PAGE:(state, index) => {
-      state.pageIndex = index;
-      localStorage.setItem("pageIndex", index);
-    },
     SET_TOKEN: (state, token) => {
       state.token = token
       localStorage.setItem("Authorization", token)

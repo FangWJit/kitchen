@@ -4,7 +4,7 @@
 <!--    返回顶部按钮 -->
     <template>
     <el-backtop target="#app" :bottom="100" style="background-color: #e7e3e3;color:#FFFFFF;" >
-      <img src="./static/img/厨阁.png" />
+      <img src="./static/image/厨阁.png" />
     </el-backtop>
     </template>
   </div>

@@ -8,12 +8,7 @@ server:
 spring:
   profiles:
     active: dev
-  # 修改默认的静态寻址资源目录
-  resources:
-    static-locations: classpath:/static/image/
-  # 静态文件请求匹配方式
-  mvc:
-    static-path-pattern: /static/image/**
+
 # api框架配置
 swagger:
   # 扫描这些包下面的  接口类 和 实体类

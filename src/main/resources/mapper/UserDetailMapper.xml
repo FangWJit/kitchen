@@ -118,33 +118,4 @@
         LIMIT 0,20
     </select>
 
-    <update id="updateUserPhoto" parameterType="string">
-        UPDATE user_detail SET user_photo=#{photo} WHERE id=#{id}
-    </update>
-
-    <select id="getWorks" parameterType="string" resultType="com.dhf.kitchen.system.pc.userdetail.model.dto.UserWorks">
-        SELECT meauID AS foodId,
-        img AS foodPhoto,
-        name AS foodName
-        FROM meau
-        WHERE user_id = #{userId}
-    </select>
-
-    <update id="updateUser" parameterType="userDetail">
-        UPDATE user_detail SET
-        <trim suffixOverrides=",">
-            <if test="userName != '' || userName != null ">
-                user_name=#{userName},
-            </if>
-            <if test="age != 0">
-                age=#{age},
-            </if>
-            <if test="sex != '' ">
-                sex=#{sex},
-            </if>
-        </trim>
-        WHERE
-         user_phone=#{userPhone}
-    </update>
-
 </mapper>

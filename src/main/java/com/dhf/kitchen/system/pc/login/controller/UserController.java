@@ -84,9 +84,6 @@ public class UserController {
     @PostMapping(value = "/forGetPass")
     public KitResult forGetPass(@Valid @RequestBody AlterPassDto alterPassDto) {
 
-        if(!Pattern.matches(MyConstant.REGEX_MOBILE_EXACT,alterPassDto.getUserPhone())) {
-            return KitResult.fail("输入手机号格式不对");
-        }
         User user = alterPassDto.convertTo(User.class);
         log.info("user {}",user);
         KitResult kitResult = userService.queryByPhone(user);
@@ -97,7 +94,6 @@ public class UserController {
         return kitResult;
     }
 
-    @Deprecated
     @ApiOperation(value = "用户注册时验证手机号", tags = "用户注册手机时验证手机号")
     @GetMapping(value = "/registerCheck")
     public KitResult registerCheck(String phone) throws IOException {
@@ -108,10 +104,6 @@ public class UserController {
     @PostMapping(value = "/register")
     public KitResult register(@Valid @RequestBody UserRegisterDto userRegisterBo) {
 
-        boolean isPhone = Pattern.matches(MyConstant.REGEX_MOBILE_EXACT,userRegisterBo.getUserPhone());
-        if (!isPhone) {
-            return KitResult.fail("手机号格式不对,请重新注册");
-        }
         User user = userRegisterBo.convertTo(User.class);
         return userService.insertUser(user);
     }

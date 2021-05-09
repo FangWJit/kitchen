@@ -5,11 +5,10 @@
 
  .info{
 	 box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
-	 max-width: 900px;
+	 max-width: 850px;
 	 height: 250px;
 	 margin: 10px auto;
-	 padding-top: 30px;
-	 padding-bottom: 10px;
+	 padding-top: 50px;
  }
 
 .pro_left{
@@ -22,8 +21,8 @@
 .table_info{
 	width: 500px;
 	float: left;
-	line-height: 50px;
-	margin-left: 30px;
+	line-height: 60px;
+	margin-left: 50px;
 }
 
 .pro_photo{

@@ -6,36 +6,34 @@
     <select id="selectHtList"  resultType="htDetail">
         SELECT hd.ht_id AS htId,
         hd.user_id AS userId,
-        ud.user_name AS userName,
-        ud.user_photo AS userPhoto,
+        hd.user_name AS userName,
+        hd.user_photo AS userPhoto,
         hd.ht_value AS htValue,
         hd.create_time AS createTime,
         count(hr.id) as ansNum
         FROM ht_detail AS hd
         left JOIN ht_relation AS hr ON hr.que_id = hd.ht_id
-        left JOIN user_detail AS ud ON hd.user_id = ud.id
         where hd.isht=1
         GROUP BY hd.ht_id
         ORDER BY createTime DESC
     </select>
-<!--获取话题的评论-->
+
     <select id="getHt"  resultType="htDetail">
         SELECT hd.ht_id AS htId,
         hd.user_id AS userId,
-        ud.user_name AS userName,
-        ud.user_photo AS userPhoto,
+        hd.user_name AS userName,
+        hd.user_photo AS userPhoto,
         hd.ht_value AS htValue,
         hd.create_time AS createTime
         FROM ht_relation AS hr
         INNER JOIN ht_detail AS hd ON hr.ans_id = hd.ht_id
-        left JOIN user_detail AS ud ON hd.user_id = ud.id
         where hr.que_id = #{queId}
         ORDER BY hd.create_time DESC
     </select>
 
     <insert id="insertHt" parameterType="htDetailDt" >
-        INSERT INTO ht_detail(ht_id,user_id,ht_value,isht)
-        values (#{htId},#{userId},#{htValue},#{isHt})
+        INSERT INTO ht_detail(ht_id,user_id,user_name,user_photo,ht_value,isht)
+        values (#{htId},#{userId},#{userName},#{userPhoto},#{htValue},#{isHt})
     </insert>
 
     <insert id="insertAnsHt" parameterType="htDetailDt">
