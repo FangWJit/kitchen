@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dhf.kitchen.base.ip.mapper.IpMapper">
+
+
+    <select id="getIp" parameterType="string" resultType="com.dhf.kitchen.base.ip.model.Ip">
+        SELECT ip,user_phone,country,province,city,isp,visit_count,last_time FROM ipaddress WHERE ip=#{ip} AND user_phone=#{userPhone}
+    </select>
+
+    <insert id="insertIp" parameterType="com.dhf.kitchen.base.ip.model.Ip">
+        INSERT INTO ipaddress
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="ip != '' || ip != null">
+                ip,
+            </if>
+            <if test="UserPhone != '' || UserPhone != null">
+                user_phone,
+            </if>
+            <if test="Country != '' || Country != null">
+                country,
+            </if>
+            <if test="Province != '' || Province != null">
+                province,
+            </if>
+            <if test="City != '' || City != null">
+                city,
+            </if>
+            <if test="Isp != '' || Isp != null">
+                isp,
+            </if>
+        </trim>
+        <trim prefix="VALUES(" suffix=")" suffixOverrides=",">
+            <if test="ip != '' || ip != null">
+                #{ip},
+            </if>
+            <if test="UserPhone != '' || UserPhone != null">
+                #{UserPhone},
+            </if>
+            <if test="Country != '' || Country != null">
+                #{Country},
+            </if>
+            <if test="Province != '' || Province != null">
+                #{Province},
+            </if>
+            <if test="City != '' || City != null">
+                #{City},
+            </if>
+            <if test="Isp != '' || Isp != null">
+                #{Isp},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateIpCount" parameterType="string" >
+        UPDATE ipaddress SET visit_count = visit_count+1 WHERE ip = #{ip} AND user_phone=#{userPhone}
+    </update>
+
+</mapper>

@@ -4,43 +4,37 @@
 }
 #food_list{
     text-align: center;
-    position: relative;
     margin: 0 auto;
     padding-top: 50px;
-    width:860px;
+    width:1410px;
     height: auto;
 }
 #body_div_left_top_down1{
     border-radius: 3px;
-    margin-top: 10px;
+    margin: 10px auto;
     height: 200px;
     width: 960px;
     padding-top: 5px;
     background-color: rgba(255, 255, 255, 0.5);
 }
 #food_list_pork,#food_list_fish{
-    float: left;
-    position: relative;
     width: 960px;
-    margin-top: 10px;
+    margin: 10px auto;
     height:auto;
+    overflow: hidden;
     background-color: rgba(255, 255, 255, 0.5);
 }
 #food_list_left_beef,#food_list_left_other,#food_list_left_chicken{
     float: left;
-    position: relative;
     width: 460px;
-    margin-top: 10px;
-    margin-right: 10px;
+    margin: 10px 0 10px 225px;
     height:auto;
     background-color: rgba(255, 255, 255, 0.5);
 }
 #food_list_right_mutton,#food_list_right_milk,#food_list_right_duck{
     float: right;
-    position: relative;
     width: 460px;
-    margin-top: 10px;
-    margin-left: 10px;
+    margin: 10px 225px 10px 0;
     height:auto;
     background-color: rgba(255, 255, 255, 0.5);
 }

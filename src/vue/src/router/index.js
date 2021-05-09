@@ -12,31 +12,90 @@ import foodDetails from "../components/foodDetails";
 import health from "../components/health";
 import food_assort from "../components/food_assort";
 import user_assort from "../components/user_assort";
-
+import search from "../components/search";
+import Home from "../components/Home";
+import Video from "../components/Video";
+import UploadWord from "../components/UploadWord";
+import Word from "../components/Word";
 Vue.use(VueRouter)
 
 const routes = [
-
     {
         path: '/',
         name: 'First',
         redirect: { name: 'index' }
-    },
-    {
-        path: '/index',
-        name: 'index',
-        component: index,
-        meta:{ keepAlive: true }
-    },
-    {
-        path: '/detail',
-        name: 'detail',
-        component:detail
-    },
-    {
-        path: '/foodDetails',
-        name: 'foodDetails',
-        component:foodDetails
+    },{
+        path: '/',
+        name: "Home",
+        component: Home,
+        children:[
+            {
+                path: '/index',
+                name: 'index',
+                component: index,
+                meta:{ keepAlive: true }
+            },
+            {
+                path: '/detail',
+                name: 'detail',
+                component:detail
+            },
+            {
+                path: '/foodlist',
+                name:'foodlist',
+                component: foodlist
+            },
+            {
+                path: '/foodlist2',
+                name:'foodlist2',
+                component: foodlist2
+            },
+            {
+                path: '/food_question',
+                name:'food_question',
+                component: food_question,
+            },
+            {
+                path: '/proclamation',
+                name: 'proclamation',
+                component: proclamation
+            },
+            {
+                path: '/health',
+                name: 'health',
+                component: health
+            },
+            {
+                path: '/food_assort',
+                name: 'food_assort',
+                component: food_assort
+            },
+            {
+                path: '/user_assort',
+                name: 'user_assort',
+                component: user_assort
+            },
+            {
+                path: '/search',
+                name: 'search',
+                component: search
+            },
+            {
+                path: '/video',
+                name: 'Video',
+                component: Video
+            },
+            {
+                path: '/UploadWord',
+                name: UploadWord,
+                component: UploadWord
+            },
+            {
+                path: '/word',
+                name: Word,
+                component: Word
+            }
+        ]
     },
     {
         path: '/login',
@@ -44,51 +103,20 @@ const routes = [
         component:login
     },
     {
-        path: '/foodlist',
-        name:'foodlist',
-        component: foodlist
-    },
-    {
-        path: '/foodlist2',
-        name:'foodlist2',
-        component: foodlist2
-    },
-    {
         path: '/register',
         name:'register',
         component: register
     },
     {
-        path: '/food_question',
-        name:'food_question',
-        component: food_question,
-    },
-    {
-        path: '/proclamation',
-        name: 'proclamation',
-        component: proclamation
-    },
-    {
-        path: '/health',
-        name: 'health',
-        component: health
-    },
-    {
-        path: '/food_assort',
-        name: 'food_assort',
-        component: food_assort
-    },
-    {
-        path: '/user_assort',
-        name: 'user_assort',
-        component: user_assort
+        path: '/foodDetails',
+        name: 'foodDetails',
+        component:foodDetails
     }
-
 ]
 
 const router = new VueRouter({
-    mode: 'history',
-    // mode: 'hash',
+    // mode: 'history',
+    mode: 'hash',
     base: process.env.BASE_URL,
     routes
 })

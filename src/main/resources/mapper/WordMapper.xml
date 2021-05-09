@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dhf.kitchen.system.pc.word.mapper.WordMapper">
+
+<!--  查看所有的文章 -->
+    <select id="getWordList" resultType="com.dhf.kitchen.system.pc.word.model.dto.WordDto">
+        SELECT
+            w.word_id AS word_id,
+            w.user_id AS user_id,
+            ud.user_name AS user_name,
+            ud.user_photo AS user_photo,
+            w.word_title AS word_title,
+            w.word_type AS word_type,
+            w.word_content AS word_content,
+            w.create_time AS create_time,
+            w.read_count AS read_count,
+            w.like_count AS like_count,
+            w.sc_count AS sc_count,
+            w.state AS state
+        FROM Word AS w
+        INNER JOIN user_detail AS ud ON w.user_id=ud.id
+        WHERE w.word_type=#{wordType}
+        ORDER BY w.create_time DESC
+    </select>
+
+    <select id="getUserWordList" resultType="com.dhf.kitchen.system.pc.word.model.dto.WordDto">
+        SELECT
+            w.word_id AS word_id,
+            w.user_id AS user_id,
+            ud.user_name AS user_name,
+            ud.user_photo AS user_photo,
+            w.word_title AS word_title,
+            w.word_type AS word_type,
+            w.word_content AS word_content,
+            w.create_time AS create_time,
+            w.read_count AS read_count,
+            w.like_count AS like_count,
+            w.sc_count AS sc_count,
+            w.state AS state
+        FROM Word AS w
+        INNER JOIN user_detail AS ud ON w.user_id=ud.id
+        WHERE w.user_id=#{userId}
+        ORDER BY w.create_time DESC
+    </select>
+
+<!--    查询某一个文章 -->
+    <select id="getWord" parameterType="string" resultType="com.dhf.kitchen.system.pc.word.model.dto.WordDto">
+        SELECT
+            w.word_id AS word_id,
+            w.user_id AS user_id,
+            ud.user_name AS user_name,
+            ud.user_photo AS user_photo,
+            w.word_title AS word_title,
+            w.word_type AS word_type,
+            w.word_content AS word_content,
+            w.create_time AS create_time,
+            w.read_count AS read_count,
+            w.like_count AS like_count,
+            w.sc_count AS sc_count
+        FROM Word AS w
+        INNER JOIN user_detail AS ud ON w.user_id=ud.id
+        WHERE word_id=#{wordId}
+    </select>
+
+    <insert id="inertWord" parameterType="word">
+        INSERT INTO Word(word_id,user_id,word_title,word_type,word_content) VALUES(#{wordId},#{userId},#{wordTitle},#{wordType},#{wordContent})
+    </insert>
+
+    <update id="updateWord" parameterType="word">
+        UPDATE Word SET
+        <trim suffixOverrides=",">
+            <if test="wordTitle != '' ">
+                word_title=#{wordTitle},
+            </if>
+            <if test="wordType != '' ">
+                word_type=#{wordType},
+            </if>
+            <if test="wordContent != '' ">
+                word_content=#{wordContent},
+            </if>
+            <if test="readCount != 0 ">
+                read_count=#{readCount},
+            </if>
+            <if test="likeCount != 0 ">
+                like_count=#{likeCount},
+            </if>
+            <if test="scCount != 0 ">
+                sc_count=#{scCount},
+            </if>
+        </trim>
+        WHERE word_id=#{wordId}
+    </update>
+
+    <delete id="deleteWord" parameterType="word">
+        DELETE FROM Word WHERE word_id=#{wordId}
+    </delete>
+
+</mapper>

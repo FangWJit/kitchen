@@ -3,10 +3,10 @@
 <mapper namespace="com.dhf.kitchen.system.pc.food.mapper.FoodListMapper">
 
     <sql id="base_sql">
-        user_id,user_name,name,tags,method,img,level,peopleNum,taste,prepareTime,cookTime,mainIngredient,accessories,measure,techniques,CreateTime,readcount,likecount
+        meauID,user_id,user_name,name,tags,method,img,level,peopleNum,taste,prepareTime,cookTime,mainIngredient,accessories,measure,techniques,CreateTime,readcount,likecount
     </sql>
     <sql id="rank_sql">
-        user_id,user_name,name,tags,img,likecount
+        meauID,user_id,user_name,name,tags,img,likecount
     </sql>
 <!--    降序排列菜单 -->
     <select id="getList" resultType="foodMeau">
@@ -23,13 +23,29 @@
         ORDER BY likecount desc
         LIMIT 0,7
     </select>
-<!--  查询最近-->
+<!--  查询最近 中最受欢迎排行-->
     <select id="getLastList" resultType="foodRankDto">
         SELECT
         <include refid="rank_sql"></include>
         FROM `meau`
-        ORDER BY createTime desc
+        ORDER BY createTime desc ,likecount desc
         LIMIT 0,7
     </select>
+<!-- 获取菜品详情 -->
+    <select id="getFoodMeau" resultType="foodMeau" >
+        SELECT
+        <include refid="base_sql"/>
+        FROM meau
+        WHERE meauID = #{meauId}
+    </select>
+
+    <select id="getCount" resultType="int">
+        SELECT COUNT(meauID) FROM meau
+    </select>
+
+<!--    修改阅读量 -->
+    <update id="updateRead" >
+        UPDATE meau set readcount = readcount+1 where meauID = #{meauId}
+    </update>
 
 </mapper>

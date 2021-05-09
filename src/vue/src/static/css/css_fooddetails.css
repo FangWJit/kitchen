@@ -4,7 +4,10 @@
 }
 
 .body {
-    padding-top: 50px;
+    padding-top: 30px;
+    width: 1410px;
+    margin: 0 auto;
+    position: relative;
 }
 
 .info_user {
@@ -19,7 +22,7 @@
 }
 .navigation {
     width: 180px;
-    height: 340px;
+    height: auto;
     float: left;
     margin-top: 200px;
     margin-left: 130px;
@@ -36,22 +39,21 @@
 }
 
 .button_aaa {
-    margin-bottom: 2px;
-    height: 50px;
+    margin-bottom: 10px;
+    height: 30px;
     width: 160px;
-    background-color: #f3ead8;
-    border-radius: 4px;
     border: none;
-    outline: none;
+    /*border-bottom: 1px solid;*/
 }
 .button_aaa:hover{
-    background-color: #f3dcac;
+    background-color: coral;
+    color: white;
 }
 
 .food_qu {
     width: 800px;
+    margin-left: 340px;
     height: 260px;
-    margin: 0 auto;
     padding: 20px;
     border-radius: 6px;
     background-color: rgba(255, 255, 255, 0.5);
@@ -116,10 +118,10 @@
 }
 
 .own_photo {
-    height: 80px;
-    width: 80px;
+    height: 65px;
+    width: 65px;
     border-radius: 50%;
-    margin: 10px auto;
+    margin: 50px 20px 10px 60px;
     display: block;
     /*background-color: #e7e3e3;*/
 }
@@ -129,6 +131,10 @@
     text-align: center;
     /*background-color: #e7e3e3;*/
 }
+.own_name:hover {
+    color: coral;
+}
+
 .dy,.numbers,.number {
     float: right;
     margin-right: 10px;
@@ -147,7 +153,8 @@
 .pei_liao {
     width: 800px;
     height: 150px;
-    margin: 50px auto;
+    margin-left: 340px;
+    margin-top: 20px;
     padding: 20px;
     border-radius: 6px;
     background-color: rgba(255, 255, 255, 0.5);
@@ -171,7 +178,19 @@ p{
 .step {
     width: 800px;
     height: auto;
-    margin: 50px auto;
+    margin-left: 340px;
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
+}
+
+.pinglun {
+    width: 800px;
+    height: auto;
+    margin-left: 340px;
+    margin-top: 20px;
     padding: 20px;
     border-radius: 6px;
     background-color: rgba(255, 255, 255, 0.5);

@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@MapperScan(basePackages = "com.dhf.kitchen.system.pc.*.mapper")
+@MapperScan(basePackages = {"com.dhf.kitchen.system.pc.*.mapper","com.dhf.kitchen.base.ip.mapper"})
 public class MybatisPlusConfig {
 
     // 性能分析拦截器

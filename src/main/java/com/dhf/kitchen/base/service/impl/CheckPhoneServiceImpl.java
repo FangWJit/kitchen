@@ -10,6 +10,8 @@ import com.dhf.kitchen.utils.SmsCodeUtil;
 import com.dhf.kitchen.utils.ValidateSmsCodeUtil;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -27,37 +29,12 @@ public class CheckPhoneServiceImpl implements CheckPhoneService {
     @Autowired
     UserService userService;
 
-    /**
-    　* @Description 修改密码发送验证码
-    　* @Author 方万军
-    　* [strMobile]
-    　* @return com.dhf.kitchen.base.KitResult
-    　* @date 2020/12/2 9:19
-    */
-    @Override
-    public KitResult checkPhone(String strMobile) throws IOException {
-        //手机号非空验证，以及正确性验证
-        if(StrUtil.isBlank(strMobile)) {
-            return KitResult.fail(MyConstant.STR_MOBILE_NULL);
-        }else if(!Pattern.matches(MyConstant.REGEX_MOBILE_EXACT,strMobile)) {
-            return KitResult.fail(MyConstant.STR_MOBILE_ERROR);
-        }
-        User u = new User();
-        u.setUserPhone(strMobile);
-        KitResult kitResult = userService.queryByPhone(u);
-        if (kitResult.getData() == null) {
-            return kitResult;
-        }
-        String code = SmsCodeUtil.sendSmsCode(strMobile);
-        if (!"200".equals(code)) {
-            if (code.equals("416")) {
-                return KitResult.fail("今日短信发送已达上限");
-            } else {
-                return KitResult.fail("系统错误");
-            }
-        }
-        return KitResult.succ(null);
-    }
+    @Autowired
+    SmsCodeUtil smsCodeUtil;
+
+    @Qualifier("myRedisTemplate")
+    @Autowired
+    RedisTemplate redisTemplate;
 
     /**
     　* @Description 注册验证手机
@@ -80,7 +57,41 @@ public class CheckPhoneServiceImpl implements CheckPhoneService {
         if (StringUtils.equals(kitResult.getCode(),"200")) {
             return KitResult.fail("该手机号已经注册过了，无需再注册");
         }
-        String code = SmsCodeUtil.sendSmsCode(strMobile);
+        String code = smsCodeUtil.sendSmsCode(strMobile);
+        if (!"200".equals(code)) {
+            if (code.equals("416")) {
+                return KitResult.fail("今日短信发送已达上限");
+            } else {
+                return KitResult.fail("系统错误");
+            }
+        }
+        return KitResult.succ(null);
+    }
+
+    /**
+     　* @Description 修改密码时发送验证码
+     　* @Author 方万军
+     　* [strMobile]
+     　* @return com.dhf.kitchen.base.KitResult
+     　* @date 2020/12/2 9:19
+     */
+    @Override
+    public KitResult checkPhone(String strMobile) throws IOException {
+        //手机号非空验证，以及正确性验证
+        if(StrUtil.isBlank(strMobile)) {
+            return KitResult.fail(MyConstant.STR_MOBILE_NULL);
+        }else if(!Pattern.matches(MyConstant.REGEX_MOBILE_EXACT,strMobile)) {
+            return KitResult.fail(MyConstant.STR_MOBILE_ERROR);
+        }
+        User u = new User();
+        u.setUserPhone(strMobile);
+        // 验证用户 是否已经注册过
+        KitResult kitResult = userService.queryByPhone(u);
+        if (kitResult.getData() == null) {
+            return kitResult;
+        }
+
+        String code = smsCodeUtil.sendSmsCode(strMobile);
         if (!"200".equals(code)) {
             if (code.equals("416")) {
                 return KitResult.fail("今日短信发送已达上限");
@@ -108,10 +119,12 @@ public class CheckPhoneServiceImpl implements CheckPhoneService {
         }else if(!Pattern.matches("[0-9]{4}",code)) {
             return KitResult.fail("验证码格式不对");
         }
-        String smsCode = ValidateSmsCodeUtil.sendValidateSmsCode(phone, code);
-        if (StringUtils.equals("200",smsCode)) {
+
+        String s = (String) redisTemplate.opsForValue().get(phone);
+
+        if (StringUtils.equals(s,code)) {
             return KitResult.succ(null);
         }
-        return KitResult.fail("验证失败");
+        return KitResult.fail("验证码错误");
     }
 }
